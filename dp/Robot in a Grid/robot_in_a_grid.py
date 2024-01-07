@@ -10,8 +10,8 @@ Sample:
 [0, 0, 0, 1],
 [1, 0, 0, 0],
 [0, 0, 1, 0]
-[(0, 0), (0, 1), (1, 1), (1, 2), (1, 3), (2, 3), (3, 3)]
 
+[(0, 0), (1, 0), (1, 1), (2, 1), (2, 2), (2, 3), (3, 3)]
 Hints:#331, #360, #388
 
 
@@ -24,41 +24,38 @@ handle visited
 
 def find_path(grid):
     
-    # handle 0 edge cases
-    if not grid:
-        return None
-    if not grid[0]:
-        return ([0,0])
+    # Handle edge cases: empty grid or no rows in the grid
+    if not grid or not grid[0]:
+        return []
     
+    # Get the number of rows and columns in the grid
     ROW, COL = len(grid), len(grid[0])
-    visited = set()
-    finalPath = -99
-    
+    finalPath = []
     
     def dfs(r, c, path):
-        # handle boundary and road block case
-        if r == ROW or c == COL or (r, c) in visited or grid[r][c] == 1:
-            return
+        nonlocal finalPath
         
+        # Check if the current position is out of bounds or a roadblock
+        if r == ROW or c == COL or grid[r][c] == 1:
+            return False
+        
+        # Check if the robot has reached the bottom-right corner
         if (r, c) == (ROW - 1, COL - 1):
-            path.append((r, c))    
-            return path
+            path.append((r, c))
+            finalPath = path[:]  # Update the finalPath with the valid path
+            return True
         
-        visited.add((r, c))
-        path.append((r, c))
+        path.append((r, c))  # Add the current position to the path
         
-        # dfs into other indices
-        x = dfs(r + 1, c, path) # down
-        y = dfs(r, c + 1, path) # right
+        # Recursively explore the right and down directions
+        res = dfs(r + 1, c, path) or dfs(r, c + 1, path)
         
-        visited.remove((r, c))
-        path.remove((r, c))
-        
-        if x: print(x)
-        if y: print(y)
-        
-        
-    return dfs(0, 0, [])
+        path.remove((r, c))  # Backtrack by removing the current position from the path
+        return res
+
+    # Return the finalPath if a valid path is found, or an empty list otherwise
+    return finalPath if dfs(0, 0, []) else []
+
 
 grid = [
             [0, 1, 0, 0],
