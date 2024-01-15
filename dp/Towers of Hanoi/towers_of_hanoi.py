@@ -15,8 +15,12 @@ Hints: #144: Try the Base Case and Build approach
 
 def tower_hanoi(n, a, b, c):
     if n == 1:
-        print("move the 1st disc from ", a, "to ", c)
+        print(f'disc {n} from {a} -> {c}')
         return
     tower_hanoi(n - 1, a, c, b)
-    print("move ", n, "th disk from ", a, " to ", c)
+    print(f'disc {n} from {a} -> {c}')
     tower_hanoi(n - 1, b, a, c)
+    
+    
+    
+tower_hanoi(5, "A", "B", "C")
