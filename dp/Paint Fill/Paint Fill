@@ -1,0 +1,36 @@
+def paintFill(image, sr, sc, color):
+    
+    ROW, COL = len(image), len(image[0])
+    visited = set()
+    valueBeingChanged = image[sr][sc]
+
+    def dfs(r, c):
+        
+        if r < 0 or c < 0 or r >= ROW or c >= COL or (r, c) in visited or not image[r][c] == valueBeingChanged:
+            return
+        
+        visited.add((r, c))
+        image[r][c] = color
+        
+        dfs(r + 1, c)
+        dfs(r, c + 1)
+        dfs(r - 1, c)
+        dfs(r, c - 1)
+        
+    
+    dfs(sr, sc)
+    return image
+
+'''
+Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2
+Output: [[2,2,2],[2,2,0],[2,0,1]]
+
+Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0
+Output: [[0,0,0],[0,0,0]]
+'''
+
+res = paintFill([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2)
+print(res)
+
+res = paintFill([[0,0,0],[0,0,0]], 0, 0, 0)
+print(res)
