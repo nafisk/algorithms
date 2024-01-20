@@ -13,6 +13,7 @@ Hints:
         is at row 8 and column 3? You then need to check all the ways of placing a queen on row 7.
 '''
 
+
 def eight_queens(n):
     COL, DIAG, ANTI_DIAG = set(), set(), set()
     res = []
