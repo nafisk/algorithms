@@ -66,5 +66,23 @@ def coin_change_backtracking_top_down_memo(n):
     return result if result != math.inf else -1
 
 
-res = coin_change_backtracking_top_down_memo(27) # 5, 1, 1 = 3 coins
+
+# Bottom - Up approach
+def coin_change_bottom_up(coins, amount):
+    dp = [amount + 1] * (amount + 1)
+    dp[0] = 0
+    print(dp)
+
+    for i in range(1, amount + 1):
+        for coin in coins:
+            if i - coin >= 0:
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+                print(f'{i} - {coin} = {i - coin}')
+                print(dp)
+                print()
+    return dp[amount] if dp[amount] != amount + 1 else -1
+
+
+coins = [1, 5, 10, 25]
+res = coin_change_bottom_up(coins, 27) # 5, 1, 1 = 3 coins
 print(res)
