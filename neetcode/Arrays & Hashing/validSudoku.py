@@ -28,3 +28,4 @@ def isValidSudoku(self, board: List[List[str]]) -> bool:
             print(sCol)
                 
     return True
+
