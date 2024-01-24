@@ -26,7 +26,9 @@ def pairsOfSongsBruteForce(arr):
                 res += 1     
     return res
 
-
+def pairsOfSongsHashMap(arr):
+    pass
+    
 arr = [30, 20, 150, 100, 40]   
 ans = pairsOfSongsBruteForce(arr)
 print(ans)
